@@ -39,6 +39,18 @@ app.get('/health', (req, res) => {
   res.json({ ok: true });
 });
 
+// Root URL (browsers do GET /); without this, Express returns "Cannot GET /"
+app.get('/', (req, res) => {
+  res.type('html');
+  res.send(
+    '<!DOCTYPE html><html><head><meta charset="utf-8"><title>API</title></head><body>' +
+      '<h1>Backend is running</h1>' +
+      '<p>API endpoints: <code>POST /api/register</code>, <code>POST /api/login</code>. ' +
+      'Health: <a href="/health">/health</a>.</p>' +
+      '</body></html>'
+  );
+});
+
 // API Routes
 // Register API
 app.post('/api/register', async (req, res) => {
